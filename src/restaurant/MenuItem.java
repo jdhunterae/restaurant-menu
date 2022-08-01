@@ -21,13 +21,7 @@ public class MenuItem {
 
 
     public MenuItem() {
-        this.name = "Name";
-        this.category = MAIN_COURSE;
-        this.description = "Description";
-        this.price = 0.00;
-
-        created = getToday();
-        updated = getToday();
+        this("Name", "Description", MAIN_COURSE, 0.00);
     }
 
     public MenuItem(String name, String description, String category, double price) {
@@ -40,11 +34,14 @@ public class MenuItem {
         updated = getToday();
     }
 
-    public String display() {
+    @Override
+    public String toString() {
+        String text = String.format("%s : %s\n  ($%s)", name, description, DF.format(price));
+
         if (isNew()) {
-            return String.format("(NEW) %s : %s\n  ($%s)", name, description, DF.format(price));
+            text = String.format("(NEW) %s", text);
         }
-        return String.format("%s : %s\n  ($%s)", name, description, DF.format(price));
+        return text;
     }
 
     public String getCategory() {

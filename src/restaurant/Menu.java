@@ -26,18 +26,21 @@ public class Menu {
         items.remove(item);
     }
 
-    public void listItems() {
-        System.out.println("::: MENU :::");
+    @Override
+    public String toString() {
+        StringBuilder text = new StringBuilder("::: MENU :::\n");
 
         for (String cat : MenuItem.CATEGORIES) {
-            System.out.printf("::: %s :::\n", cat);
+            text.append(String.format("::: %s :::\n", cat));
 
             for (MenuItem item : items) {
                 if (item.getCategory().equals(cat)) {
-                    System.out.println(item.display());
+                    text.append(String.format("%s\n", item));
                 }
             }
         }
+
+        return text.toString();
     }
 
     public static Menu getSampleMenu() {

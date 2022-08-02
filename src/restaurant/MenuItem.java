@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Objects;
 
 public class MenuItem {
     public static final String MAIN_COURSE = "Main Course", APPETIZER = "Appetizer", DESSERT = "Dessert";
@@ -88,12 +89,8 @@ public class MenuItem {
         return created.after(cutoff) || updated.after(cutoff);
     }
 
-    private static Date parseDate(String date) {
-        try {
-            return DATE_FORMAT.parse(date);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+    public Date lastUpdated() {
+        return updated;
     }
 
     private static Date oneWeekBefore(Date date) {
@@ -111,5 +108,18 @@ public class MenuItem {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MenuItem menuItem = (MenuItem) o;
+        return Double.compare(menuItem.getPrice(), getPrice()) == 0 && getName().equals(menuItem.getName()) && getDescription().equals(menuItem.getDescription()) && getCategory().equals(menuItem.getCategory());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getDescription(), getCategory(), getPrice());
     }
 }

@@ -23,11 +23,31 @@ public class Menu {
     }
 
     public void addItem(MenuItem item) {
+        if (hasItem(item)) {
+            System.out.printf("Item '%s' already exists on the menu.\n", item.getName());
+            return;
+        }
+
         items.add(item);
     }
 
     public void removeItem(MenuItem item) {
+        if (!hasItem(item)) {
+            System.out.printf("Item '%s' not found.\n", item.getName());
+            return;
+        }
+
         items.remove(item);
+    }
+
+    public boolean hasItem(MenuItem item) {
+        for (MenuItem i : items) {
+            if (i.equals(item)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void updateItem(MenuItem old, MenuItem updated) {
